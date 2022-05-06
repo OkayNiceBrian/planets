@@ -1,4 +1,4 @@
-from cmath import cos, sin
+from cmath import cos, sin, sqrt
 from SpaceObject import SpaceObject
 from Velocity2d import Velocity2d
 
@@ -20,16 +20,12 @@ class FlyingObject(SpaceObject):
         self.rect.x = self.x
         self.rect.y = self.y
         
-        print(str(self.rect.x) + ", " + str(self.rect.y))
-        # self.rect.x += self.velocity.x
-        # self.rect.y += self.velocity.y
-        
     def distanceBetween(self, spaceObject):
         assert isinstance(spaceObject, SpaceObject)
-        
+    
     @staticmethod
     def determineVelocityVector(speed, heading):
-        xspeed = speed * cos(heading)
-        yspeed = speed * sin(heading)
+        xspeed = (speed * cos(heading)).real
+        yspeed = (speed * sin(heading)).real
         return Velocity2d(xspeed, yspeed)
         
