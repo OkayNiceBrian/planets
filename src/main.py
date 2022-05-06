@@ -20,8 +20,8 @@ spacePressed = False
 earthImage = "../assets/earth.png"
 ballImage = "../assets/ball.png"
 
-earth = SpaceObject(600, 400, 200, 1000, earthImage)
-meteor = FlyingObject(100, 150, 10, 1, 1, 0, ballImage)
+earth = SpaceObject(600, 400, 200, 10000, earthImage)
+meteor = FlyingObject(200, 50, 10, 1, 3, 0, ballImage)
 
 while 1:
     # Events

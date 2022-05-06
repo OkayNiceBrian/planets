@@ -15,7 +15,7 @@ class FlyingObject(SpaceObject):
         
     def update(self):
         self.x += self.velocity.x
-        self.y -= self.velocity.y
+        self.y += self.velocity.y
         
         self.rect.x = self.x
         self.rect.y = self.y
