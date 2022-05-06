@@ -1,3 +1,4 @@
+from cmath import pi
 import sys
 import pygame
 from SpaceObject import SpaceObject
@@ -14,16 +15,11 @@ leftPressed = False
 rightPressed = False
 spacePressed = False
 
-earth = SpaceObject(600, 200, 200, 1000)
-meteor = FlyingObject(100, 150, 10, 1, 2, 0)
+earthImage = "../assets/earth.png"
+ballImage = "../assets/ball.png"
 
-purpleBall = pygame.image.load("../assets/ball.png")
-purpleBall = pygame.transform.scale(purpleBall, (meteor.radius * 2, meteor.radius * 2))
-purpleBallRect = purpleBall.get_rect(topleft=(meteor.x, meteor.y))
-
-earthBall = pygame.image.load("../assets/earth.png")
-earthBall = pygame.transform.scale(earthBall, (earth.radius * 2, earth.radius * 2))
-earthBallRect = earthBall.get_rect(topleft=(earth.x, earth.y))
+earth = SpaceObject(600, 400, 200, 1000, earthImage)
+meteor = FlyingObject(100, 150, 10, 1, 1, 7 * pi / 4, ballImage)
 
 while 1:
     # Events
@@ -61,10 +57,11 @@ while 1:
     if spacePressed:
         True
 
+    meteor.update()
 
     # Draw
     screen.fill(black)
-    screen.blit(purpleBall, purpleBallRect)
-    screen.blit(earthBall, earthBallRect)
+    screen.blit(meteor.image, meteor.rect)
+    screen.blit(earth.image, earth.rect)
     
     pygame.display.flip()
