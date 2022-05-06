@@ -1,3 +1,5 @@
+from SpaceObject import SpaceObject
+
 class FlyingObject(SpaceObject):
 
     def __init__(self, x, y, radius, mass, speed, heading):

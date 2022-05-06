@@ -1,5 +1,7 @@
 import sys
 import pygame
+from SpaceObject import SpaceObject
+from FlyingObject import FlyingObject
 pygame.init()
 
 size = width, height = 1280, 720
@@ -12,8 +14,16 @@ leftPressed = False
 rightPressed = False
 spacePressed = False
 
-# ball = pygame.image.load("../assets/buddha.png")
-# ballrect = ball.get_rect(topleft=(jumper.x, jumper.y))
+earth = SpaceObject(600, 200, 200, 1000)
+meteor = FlyingObject(100, 150, 10, 1, 2, 0)
+
+purpleBall = pygame.image.load("../assets/ball.png")
+purpleBall = pygame.transform.scale(purpleBall, (meteor.radius * 2, meteor.radius * 2))
+purpleBallRect = purpleBall.get_rect(topleft=(meteor.x, meteor.y))
+
+earthBall = pygame.image.load("../assets/earth.png")
+earthBall = pygame.transform.scale(earthBall, (earth.radius * 2, earth.radius * 2))
+earthBallRect = earthBall.get_rect(topleft=(earth.x, earth.y))
 
 while 1:
     # Events
@@ -54,5 +64,7 @@ while 1:
 
     # Draw
     screen.fill(black)
-    # screen.blit(ball, ballrect)
+    screen.blit(purpleBall, purpleBallRect)
+    screen.blit(earthBall, earthBallRect)
+    
     pygame.display.flip()
