@@ -1,5 +1,6 @@
 from cmath import pi
 from math import atan2
+from re import A
 import sys
 from numpy import angle
 import pygame
@@ -17,11 +18,17 @@ leftPressed = False
 rightPressed = False
 spacePressed = False
 
+planets = []
+fliers = []
+
 earthImage = "../assets/earth.png"
 ballImage = "../assets/ball.png"
 
 earth = SpaceObject(600, 400, 200, 10000, earthImage)
 meteor = FlyingObject(500, 130, 10, 1, 6, 0, ballImage)
+
+planets.append(earth)
+fliers.append(meteor)
 
 while 1:
     # Events
@@ -59,19 +66,33 @@ while 1:
     if spacePressed:
         True
 
-    # Calculate gravitational forces and things
-    forceGrav = (1 * earth.mass * meteor.mass) / (SpaceObject.distanceBetween(earth, meteor))**2
-    angleBetween = atan2(earth.y - meteor.y, earth.x - meteor.x)
-    accelInDirection = forceGrav / meteor.mass
-    accel = FlyingObject.determineVelocityVector(accelInDirection, angleBetween)
-    meteor.velocity.x += accel.x
-    meteor.velocity.y += accel.y
-
-    meteor.update()
+    for i in fliers:
+        for j in fliers:
+            if i != j:
+                forceGrav = (1 * j.mass * i.mass) / (SpaceObject.distanceBetween(j, i))**2
+                angleBetween = atan2(j.y - i.y, j.x - i.x)
+                accelInDirection = forceGrav / i.mass
+                accel = FlyingObject.determineVelocityVector(accelInDirection, angleBetween)
+                i.velocity.x += accel.x
+                i.velocity.y += accel.y
+        for p in planets:
+            forceGrav = (1 * p.mass * i.mass) / (SpaceObject.distanceBetween(p, i))**2
+            angleBetween = atan2(p.y - i.y, p.x - i.x)
+            accelInDirection = forceGrav / i.mass
+            accel = FlyingObject.determineVelocityVector(accelInDirection, angleBetween)
+            i.velocity.x += accel.x
+            i.velocity.y += accel.y
+    
+    for f in fliers:
+        f.update()
 
     # Draw
     screen.fill(black)
-    screen.blit(meteor.image, meteor.rect)
-    screen.blit(earth.image, earth.rect)
+    
+    for f in fliers:
+        screen.blit(f.image, f.rect)
+        
+    for p in planets:
+        screen.blit(p.image, p.rect)
     
     pygame.display.flip()
