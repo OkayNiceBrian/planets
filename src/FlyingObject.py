@@ -20,9 +20,11 @@ class FlyingObject(SpaceObject):
         self.rect.x = self.x
         self.rect.y = self.y
         
-    def distanceBetween(self, spaceObject):
-        assert isinstance(spaceObject, SpaceObject)
-    
+    def setSpeedAndHeading(self, speed, heading):
+        xspeed = (speed * cos(heading)).real
+        yspeed = (speed * sin(heading)).real
+        self.velocity = Velocity2d(xspeed, yspeed)
+
     @staticmethod
     def determineVelocityVector(speed, heading):
         xspeed = (speed * cos(heading)).real
